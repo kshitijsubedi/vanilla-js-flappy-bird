@@ -38,7 +38,7 @@ class GameContainer {
                 release=true;
             }
             else if(playingState=='gameover') {
-
+                bird.bird.style.display='block';
                 score=0;
                 scoreElement.innerText=''
                 playingState='menu';
@@ -46,9 +46,7 @@ class GameContainer {
         })
     }
     bgAnimate(changebg){
-        if(bird.fallState){
-            bird.fall(0.05)
-        }
+            bird.fall(0.1)
         this.getReady.style.display='none';
         parseInt(this.gameScreen.style.backgroundPositionX) >= 1000 ?
       (this.gameScreen.style.backgroundPositionX = "0px") :
@@ -105,6 +103,8 @@ class GameContainer {
     }
 
     gameOver(){
+        bird.bird.className='normal';
+        bird.bird.style.display='none';
         playingState='gameover';
     }
 }
@@ -112,7 +112,7 @@ class GameContainer {
 class Bird{
         constructor(){
             this.bird = document.getElementById('bird');
-            this.bird.style.backgroundImage="url('./assets/bird.png')";
+            this.bird.className='normal'
             this.bird.style.top='250px';
             this.gravity = 0.05;
             this.gravitySpeed = 0;
@@ -121,29 +121,25 @@ class Bird{
             this.fallState=true;
         }
         fall(gravity){
+            this.bird.className ='going-down';
+            this.gravitySpeed += gravity;
             if(Math.sign(gravity)==1){
-                this.gravitySpeed += gravity;
                 this.bird.style.top = parseInt(this.bird.style.top) + this.gravitySpeed +'px';
             }
             else {
-                this.bird.fallState=false;
-                for(var i = 0;i<20;i++){
-                    this.gravitySpeed-=gravity;
-                    this.bird.style.top = parseInt(this.bird.style.top) - this.gravitySpeed +'px';
-                }
-                this.bird.fallState=true;
+                this.bird.className ='going-up'
+                for(var i = 0;i<10;i++){
+                    this.bird.style.top = parseInt(this.bird.style.top) - 4 +this.gravity +'px';
+                    }
+                    this.gravitySpeed=0
             }
             if(parseInt(this.bird.style.top)>500){
+                this.bird.className ='normal'
+                bird.bird.style.display='none';
                 this.gravitySpeed=0;
                 playingState='gameover'
             }
         }
-        // tap(){
-        //     this.fallState=false;
-        //     this.gravitySpeed -= this.gravity;
-        //     this.bird.style.top=parseInt(this.bird.style.top) - this.upStep -this.gravitySpeed +'px';
-        //     this.fallState=true;
-        // }
 }
 
 class Pipes {

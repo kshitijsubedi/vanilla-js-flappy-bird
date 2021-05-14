@@ -1,4 +1,7 @@
-
+body {
+    margin:5vh;
+    background-color:#0C2D48;
+}
 @font-face {
     font-family: flappy;
     src:url("../assets/04B_19__.ttf");
@@ -31,6 +34,9 @@
     background-repeat: no-repeat;
     background-size: contain;
     left:70px;
+    /* animation-name:flappybird;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite; */
 }
 
 #get-ready {
@@ -110,4 +116,45 @@
     width:40px;
     top:44px;
     left:27px;
+}
+
+
+@keyframes flappybird {
+    0% {background-image: url('../assets/bird.png');}
+    25% {background-image: url('../assets/bird1.png');}
+    50% {background-image: url('../assets/bird2.png');}
+    100% {background-image: url('../assets/bird3.png');}
+}
+
+.going-up{
+    animation-name:flappybird,birdup;
+    animation-duration:0.5s, 2s;
+    animation-iteration-count:infinite,1 ;
+}
+.going-down{
+    animation-name:flappybird,birddown;
+    animation-duration:0.5s, 2s;
+    animation-iteration-count:infinite,1 ;
+    animation-timing-function: ease, ease-out;
+}
+.normal {
+    animation-name:flappybird,noanim;
+    animation-duration:0.5s, 1s;
+    animation-iteration-count:infinite,1 ;
+}
+@keyframes birddown {
+    25% {transform:rotate(30deg)}
+    50% {transform:rotate(60deg)}
+    75% {transform:rotate(90deg)}
+    100% {transform:rotate(120deg)}
+}
+@keyframes birdup {
+    25% {transform:rotate(-30deg)}
+    50% {transform:rotate(-60deg)}
+    75% {transform:rotate(-90deg)}
+    100% {transform:rotate(-120deg)}
+}
+@keyframes noanim {
+  0% { transform:rotate(0deg)}
+  100% { transform:rotate(0deg)}
 }
