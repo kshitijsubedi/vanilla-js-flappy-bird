@@ -3,4 +3,4 @@
 - Vanilla JS Flappy Bird
 
 ### Deployed here :
-https://kshitijsubedi.github.io/JS-Image-Carousel/
+https://kshitijsubedi.github.io/vanilla-js-flappy-bird

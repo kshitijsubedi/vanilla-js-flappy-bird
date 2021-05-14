@@ -118,6 +118,12 @@ body {
     left:27px;
 }
 
+/* 
+    Bird Animation
+    3 Stages :  Normal Flapping position
+                Gliding Up
+                Gliding Down
+*/
 
 @keyframes flappybird {
     0% {background-image: url('../assets/bird.png');}
