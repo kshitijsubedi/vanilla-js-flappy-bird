@@ -2,9 +2,14 @@ body {
     margin:5vh;
     background-color:#0C2D48;
 }
+
 @font-face {
     font-family: flappy;
-    src:url("../assets/04B_19__.ttf");
+    src: url('04b_19__-webfont.woff2') format('woff2'),
+         url('04b_19__-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
 }
 
 #container{
