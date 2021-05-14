@@ -8,10 +8,12 @@ class GameContainer {
         this.medal = document.getElementById('medal');
         this.scorePointD = document.getElementById('score-point');
         this.highScoreD = document.getElementById('high-score');
+        this.playButton = document.getElementById('play-button');
         this.final.style.display='none';
         this.gameScreen.style.backgroundPositionY='500px';
         this.gameScreen.style.backgroundPositionX = "0px";
         this.getReady.style.background="url('./assets/message.png') no-repeat";
+       // this.bird = new Bird();
     }
     initialize(){
     document.addEventListener("click", handleEvent);
@@ -24,18 +26,29 @@ class GameContainer {
                         playingState='game'
                         break;
                     case 'game':
-                        console.log('ok')
-                        break;
-                    case 'gameover':
-                        score=0;
-                        scoreElement.innerText=''
-                        playingState='menu';
+                        bird.fall(-0.05)
                         break;
                 }
                }
             }
+        this.playButton.addEventListener('click',()=>{
+            if(playingState=='menu'){
+                bird.fall(-0.05)
+                playingState='game';
+                release=true;
+            }
+            else if(playingState=='gameover') {
+
+                score=0;
+                scoreElement.innerText=''
+                playingState='menu';
+            }
+        })
     }
     bgAnimate(changebg){
+        if(bird.fallState){
+            bird.fall(0.05)
+        }
         this.getReady.style.display='none';
         parseInt(this.gameScreen.style.backgroundPositionX) >= 1000 ?
       (this.gameScreen.style.backgroundPositionX = "0px") :
@@ -80,6 +93,7 @@ class GameContainer {
                 this.medal.style.background="url('./assets/silver.png') no-repeat";
                 this.medal.style.backgroundSize='contain';
             }
+            bird.bird.style.top='250px'
             this.scorePointD.innerText=score;
             this.highScoreD.innerText=highScore;
             this.getReady.style.display='block';
@@ -97,11 +111,39 @@ class GameContainer {
 
 class Bird{
         constructor(){
-            let bird = document.getElementById('bird');
-            this.bird=bird;
+            this.bird = document.getElementById('bird');
             this.bird.style.backgroundImage="url('./assets/bird.png')";
-            this.bird.style.top='250px'
+            this.bird.style.top='250px';
+            this.gravity = 0.05;
+            this.gravitySpeed = 0;
+            this.downStep=1;
+            this.upStep=50
+            this.fallState=true;
         }
+        fall(gravity){
+            if(Math.sign(gravity)==1){
+                this.gravitySpeed += gravity;
+                this.bird.style.top = parseInt(this.bird.style.top) + this.gravitySpeed +'px';
+            }
+            else {
+                this.bird.fallState=false;
+                for(var i = 0;i<20;i++){
+                    this.gravitySpeed-=gravity;
+                    this.bird.style.top = parseInt(this.bird.style.top) - this.gravitySpeed +'px';
+                }
+                this.bird.fallState=true;
+            }
+            if(parseInt(this.bird.style.top)>500){
+                this.gravitySpeed=0;
+                playingState='gameover'
+            }
+        }
+        // tap(){
+        //     this.fallState=false;
+        //     this.gravitySpeed -= this.gravity;
+        //     this.bird.style.top=parseInt(this.bird.style.top) - this.upStep -this.gravitySpeed +'px';
+        //     this.fallState=true;
+        // }
 }
 
 class Pipes {
